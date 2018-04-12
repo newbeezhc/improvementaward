@@ -21,3 +21,17 @@ using namespace std;
 	}
 
 }
+
+
+int main()
+{
+	int n = 10000;
+	int* arr = randomtest::generaterandomarray(n,0,n);
+	//do sth
+	delete[] arr;
+	
+	
+	return 0;
+}
+
+

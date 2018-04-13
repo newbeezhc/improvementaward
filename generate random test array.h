@@ -50,22 +50,29 @@ using namespace std;
 
       	  return;
     }
+      
+	 int *copyIntArray(int a[], int n){
 
-}
-
-
-template<typename T>
-void selectionSort(T arr[], int n){
-
-    for(int i = 0 ; i < n ; i ++){
-
-        int minIndex = i;
-        for( int j = i + 1 ; j < n ; j ++ )
-            if( arr[j] < arr[minIndex] )
-                minIndex = j;
-
-        swap( arr[i] , arr[minIndex] );
+        int *arr = new int[n];
+        copy(a, a+n, arr);
+        return arr;
     }
+ 	    int *generateNearlyOrderedArray(int n, int swapTimes){//生成差不多是排好的测试序列，用来测试插入排序
+
+        int *arr = new int[n];
+        for(int i = 0 ; i < n ; i ++ )
+            arr[i] = i;
+
+        srand(time(NULL));
+        for( int i = 0 ; i < swapTimes ; i ++ ){
+            int posx = rand()%n;
+            int posy = rand()%n;
+            swap( arr[posx] , arr[posy] );
+        }
+
+        return arr;
+    }
+
 }
 
 

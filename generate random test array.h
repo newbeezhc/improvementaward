@@ -28,17 +28,45 @@ using namespace std;
 		 
 		 return;
 	 }
+	 template<typename T>
+         bool isSorted(T arr[], int n) {
+        //判断是否排好了
+        for (int i = 0; i < n - 1; i++)
+            if (arr[i] > arr[i + 1])
+                return false;
+
+        return true;
+    }
+
+    	template<typename T>
+	void testSort(const string &sortName, void (*sort)(T[], int), T arr[], int n) {
+      //函数指针求时间
+      	  clock_t startTime = clock();
+     	   sort(arr, n);
+      	  clock_t endTime = clock();
+
+      	  assert(isSorted(arr, n));//拍好的情况下
+     	   cout << sortName << " : " << double(endTime - startTime) / CLOCKS_PER_SEC << " s" << endl;
+
+      	  return;
+    }
 
 }
 
 
+template<typename T>
+void selectionSort(T arr[], int n){
 
+    for(int i = 0 ; i < n ; i ++){
 
+        int minIndex = i;
+        for( int j = i + 1 ; j < n ; j ++ )
+            if( arr[j] < arr[minIndex] )
+                minIndex = j;
 
-
-
-
-
+        swap( arr[i] , arr[minIndex] );
+    }
+}
 
 
 
@@ -47,7 +75,7 @@ int main()
 	int n = 10000;
 	int* arr = randomtest::generaterandomarray(n,0,n);
 	//do sth
-	randomtest::printarray(arr,n);
+	randomtest::testSort("Selection Sort", selectionSort, arr, n);
 	delete[] arr;//因为有new，防止内存泄漏
 	
 	

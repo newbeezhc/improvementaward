@@ -96,6 +96,9 @@ void mergeSortBU(T arr[], int n){
 template <typename T>
 int __partition(T arr[], int l, int r){
 
+//  swap( arr[l] , arr[rand()%(r-l+1)+l] );
+//近乎有序时防止退化成n^2
+
     T v = arr[l];
 
     int j = l; // arr[l+1...j] < v ; arr[j+1...i) > v
@@ -124,6 +127,46 @@ void __quickSort(T arr[], int l, int r){
 
 template <typename T>
 void quickSort(T arr[], int n){
-
+   //srand(time(NULL));
+   //随机种子，近乎有序时配
     __quickSort(arr, 0, n-1);
 }
+
+
+
+
+
+
+
+
+//二路快排，适用于有很多重复键值时候，大量数据集中在小范围
+template <typename T>
+int _partition2(T arr[], int l, int r){
+
+    swap( arr[l] , arr[rand()%(r-l+1)+l] );
+    T v = arr[l];
+
+    // arr[l+1...i) <= v; arr(j...r] >= v
+    int i = l+1, j = r;
+    while( true ){
+        while( i <= r && arr[i] < v )
+            i ++;
+
+        while( j >= l+1 && arr[j] > v )
+            j --;
+
+        if( i > j )
+            break;
+
+        swap( arr[i] , arr[j] );
+        i ++;
+        j --;
+    }
+
+    swap( arr[l] , arr[j]);
+
+    return j;
+}
+
+
+
